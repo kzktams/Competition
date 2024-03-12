@@ -21,12 +21,16 @@ namespace Competition
     /// </summary>
     public partial class AthleteDetail : Window
     {
-        public AthleteDetail()
+        public AthleteDetail(Athlete athlete)
         {
             InitializeComponent();
-            this.DataContext = new AthleteDetailWindowViewModel();
+            var vm = new AthleteDetailWindowViewModel();
+            vm.Setup(athlete);
+            this.DataContext = vm;
          
         }
+
+        
 
     }
 }
