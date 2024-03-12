@@ -4,16 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Competition"
+        xmlns:vms="clr-namespace:Competition.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <StackPanel Grid.Column="2">
-            <Button Content="Load" Padding="10" Margin="10" Background="Light"></Button>
+            <Button Content="Load" Padding="10" Margin="10" Background="LightBlue"></Button>
+            <Label Content="Total Value: " Margin="10" Padding="10"></Label>
+            <Button Content="Add athlete" Padding="10" Margin="10" Background="LightBlue"></Button>
+            <Button Content="Remove athlete" Padding="10" Margin="10" Background="LightBlue"></Button>
+            <Button Content="Details" Padding="10" Margin="10" Background="LightBlue"></Button>
+            <Label Content="Number of competitors: " Margin="10" Padding="10"></Label>
+            <Label Content="Competition Name: " Margin="10" Padding="5"></Label>
+            <TextBox x:Name="tb_filename" Margin="10" Padding="1"></TextBox>
         </StackPanel>
     </Grid>
 </Window>
