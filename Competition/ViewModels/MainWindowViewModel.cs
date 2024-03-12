@@ -96,6 +96,12 @@ namespace Competition.ViewModels
                 () => competition.Count != 0
                 );
         }
+
+        public MainWindowViewModel()
+        {
+            
+        }
+
         private string fileName;
 
         public string FileName
