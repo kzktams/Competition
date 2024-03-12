@@ -23,6 +23,7 @@ namespace Competition
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine();
         }
     }
 }
