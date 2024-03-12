@@ -28,23 +28,24 @@ namespace Competition.ViewModels
                 (LoadDataCommand as RelayCommand).NotifyCanExecuteChanged();
             }
         }
+
+        //private Athlete oneInCharge;
+        //public Athlete OneInCharge
+        //{
+        //    get { return oneInCharge; }
+        //    set
+        //    {
+        //        SetProperty(ref oneInCharge, value);
+        //        (LoadDataCommand as RelayCommand).NotifyCanExecuteChanged();
+        //    }
+        //}
         public ObservableCollection<Athlete> Competition { get; set; }
 
-        public ICommand AddToCompetitionCommand { get; set; }
-        public ICommand LoadDataCommand { get; set; }
-        public ICommand RemoveFromCompetitionCommand { get; set; }
-        public ICommand OpenAthleteCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
+        
+        //public ICommand ShowLisbox { get; set; }
 
 
-        public static bool IsInDesignMode
-        {
-            get
-            {
-                var prop = DesignerProperties.IsInDesignModeProperty;
-                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
-            }
-        }
+        
 
         private Athlete selectedAthlete;
 
@@ -71,8 +72,31 @@ namespace Competition.ViewModels
             }
         }
 
+        //private Visibility listBoxVisibility = Visibility.Collapsed;
 
-        
+        //public Visibility ListBoxVisibility
+        //{
+        //    get { return listBoxVisibility; }
+        //    set
+        //    {
+        //        SetProperty(ref listBoxVisibility, value);
+        //    }
+        //}
+
+        //private void ShowListBox()
+        //{
+        //    listBoxVisibility = Visibility.Visible;
+        //}
+        public ICommand AddToCompetitionCommand { get; set; }
+        public ICommand LoadDataCommand { get; set; }
+        public ICommand RemoveFromCompetitionCommand { get; set; }
+        public ICommand OpenAthleteCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        public MainWindowViewModel() : this(IsInDesignMode ? null : Ioc.Default.GetService<IAthleteLogic>())
+        {
+
+        }
+
 
         public MainWindowViewModel(IAthleteLogic athleteLogic)
         {
@@ -83,6 +107,11 @@ namespace Competition.ViewModels
                 () => athleteLogic.LoadData(Athletes, Competition),
                 () => Athletes.Count == 0
                 );
+
+            Athletes = new ObservableCollection<Athlete>();
+            Competition = new ObservableCollection<Athlete>();
+            //athleteLogic.SetupCollections(Athletes, Competition);
+
             AddToCompetitionCommand = new RelayCommand(
                 () => athleteLogic.AddToCompetition(SelectedAthlete),
                 () => selectedAthlete != null
@@ -108,11 +137,15 @@ namespace Competition.ViewModels
             });
         }
 
-        public MainWindowViewModel():this(IsInDesignMode ? null : Ioc.Default.GetService<IAthleteLogic>())
-        {
-            
-        }
 
+        public static bool IsInDesignMode
+        {
+            get
+            {
+                var prop = DesignerProperties.IsInDesignModeProperty;
+                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
+            }
+        }
         private string fileName;
 
         public string FileName

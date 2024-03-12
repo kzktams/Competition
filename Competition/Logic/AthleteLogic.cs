@@ -15,7 +15,7 @@ namespace Competition.Logic
     {
         IList<Athlete> athletes;
         IList<Athlete> competition;
-        IMessenger messenger;
+        private readonly IMessenger messenger;
         
 
         public AthleteLogic(IMessenger messenger)
