@@ -27,6 +27,17 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ListBox Grid.Column="0" HorizontalAlignment="Stretch" ItemsSource="{Binding competition}" SelectedItem="{Binding SelectedCompetition}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <StackPanel>
+                            <Label Content="{Binding Name}"></Label>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <StackPanel Grid.Column="2">
             <Button Content="Load" Padding="10" Margin="10" Background="LightBlue"></Button>
             <Label Content="Total Value: " Margin="10" Padding="10"></Label>
