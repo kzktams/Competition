@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Competition.Models
 {
-    public class Athletee : ObservableObject
+    public class Athlete : ObservableObject
     {
         private string name;
 

@@ -14,7 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Logic\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="ViewModels\" />
 	</ItemGroup>
