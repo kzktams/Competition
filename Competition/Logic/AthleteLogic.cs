@@ -1,4 +1,5 @@
 ﻿using Competition.Models;
+using Competition.Services;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Newtonsoft.Json;
 using System;
@@ -15,8 +16,15 @@ namespace Competition.Logic
         IList<Athlete> athletes;
         IList<Athlete> competition;
         IMessenger messenger;
+        
 
-        public double AthleteSumMarketValue { get { return (competition == null || competition.Count == 0) ? 0 : competition.Sum(x => x.MarketValue); } }
+        public AthleteLogic(IMessenger messenger)
+        {
+            this.messenger = messenger;
+            
+        }
+
+       
 
         public void SetupCollections(IList<Athlete> athletees, IList<Athlete> competition)
         {
@@ -44,9 +52,10 @@ namespace Competition.Logic
 
         }
 
-        public void LoadData(IList<Athlete> athletes)
+        public void LoadData(IList<Athlete> athletes, IList<Athlete> competetion)
         {
             this.athletes = athletes;
+            this.competition = competetion;
 
             athletes.Add(new Athlete()
             {

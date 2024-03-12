@@ -11,11 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 namespace Competition.ViewModels
 {
     public class MainWindowViewModel : ObservableRecipient
     {
+        IAthleteLogic athleteLogic;
         private ObservableCollection<Athlete> athletes;
         public ObservableCollection<Athlete> Athletes
         {
@@ -26,13 +28,14 @@ namespace Competition.ViewModels
                 (LoadDataCommand as RelayCommand).NotifyCanExecuteChanged();
             }
         }
-        public ObservableCollection<Athlete> competition;
+        public ObservableCollection<Athlete> Competition { get; set; }
 
-        public ICommand AddToCompetitionCommand;
-        public ICommand LoadDataCommand;
-        public ICommand RemoveFromCompetitionCommand;
-        public ICommand OpenAthleteCommand;
-        public ICommand SaveCommand;
+        public ICommand AddToCompetitionCommand { get; set; }
+        public ICommand LoadDataCommand { get; set; }
+        public ICommand RemoveFromCompetitionCommand { get; set; }
+        public ICommand OpenAthleteCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+
 
         public static bool IsInDesignMode
         {
@@ -69,14 +72,15 @@ namespace Competition.ViewModels
         }
 
 
-        IAthleteLogic athleteLogic;
+        
 
         public MainWindowViewModel(IAthleteLogic athleteLogic)
         {
-
+            
             this.athleteLogic = athleteLogic;
+            
             LoadDataCommand = new RelayCommand(
-                () => athleteLogic.LoadData(athletes),
+                () => athleteLogic.LoadData(Athletes, Competition),
                 () => Athletes.Count == 0
                 );
             AddToCompetitionCommand = new RelayCommand(
@@ -93,11 +97,18 @@ namespace Competition.ViewModels
                 );
             SaveCommand = new RelayCommand(
                 () => athleteLogic.Save(FileName),
-                () => competition.Count != 0
+                () => Competition.Count != 0
                 );
+
+            Athletes = new ObservableCollection<Athlete>();
+
+            Messenger.Register<MainWindowViewModel, string, string>(this, "AthleteInfo", (recipient, msg) =>
+            {
+
+            });
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel():this(IsInDesignMode ? null : Ioc.Default.GetService<IAthleteLogic>())
         {
             
         }
